@@ -1,0 +1,2 @@
+#!/bin/bash
+igrep -i "^[a-z]" /etc/ssh/sshd_config 
