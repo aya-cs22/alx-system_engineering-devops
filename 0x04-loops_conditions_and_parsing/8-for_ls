@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #a Bash script that displays the content of the current directory
 var=`ls`
-for i in $var
+for i in *
 do
-echo "$i"
+echo "${i#*-}"
 done
