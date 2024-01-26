@@ -6,7 +6,8 @@ do
     if ((num == 9))
     then
         echo "Hi"
+    else
+        echo "Best School"
     fi
-    echo "Best School"
     ((num++))
 done
