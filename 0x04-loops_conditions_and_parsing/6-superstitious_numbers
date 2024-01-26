@@ -5,12 +5,15 @@ while ((num <= 20))
 do
     if ((num == 4))
     then
+        echo "$num"
         echo "bad luck from China"
     elif ((num == 9))
     then
+        echo "$num"
         echo "bad luck from Japan"
     elif ((num == 17))
     then
+        echo "$num"
         echo "bad luck from Italy"
     else
         echo "$num"
