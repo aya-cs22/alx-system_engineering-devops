@@ -3,10 +3,10 @@
 num=1
 while ((num < 10))
 do
-if (($num == 9))
-then
-echo "Hi"
-fi
-echo "Best School"
-((num++))
+    if (($num == 9))
+    then
+    echo "Hi"
+    fi
+    echo "Best School"
+    ((num++))
 done
