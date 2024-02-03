@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Extract only IPv4 lines from ifconfig output
+ipv4_lines=$(ifconfig | grep -E 'inet (addr:)?([0-9]*\.){3}[0-9]*')
+
+# Print the second word (IP address) from each line
+for line in $ipv4_lines; do
+  echo $line | awk '{print $2}'
+done
