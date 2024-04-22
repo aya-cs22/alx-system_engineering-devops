@@ -9,9 +9,9 @@ package{'python3':
 }
 # Using Puppet, install flask from pip3.
 package{'flask':
-    ensure    => 'present',
-    provider => 'pip3',  
-    require   => ['Package[python3]'],
+    ensure       => 'present',
+    provider     => 'pip3',  
+    require      => ['Package[python3]'],
 }
 # Ensure Werkzeug is installed with a compatible version.
 package{'Werkzeug':
