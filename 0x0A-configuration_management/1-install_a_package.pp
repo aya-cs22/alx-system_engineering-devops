@@ -1,16 +1,11 @@
-#Using Puppet, install flask from pip3.
-package{'python3':
-    ensure    => '3.8.10',
-    provider => 'pip3',  
-}
-package{'flask':
-    ensure    => '2.1.0',
-    provider => 'pip3',
-    require   => Package['python3'],
+
+# Puppet manifest to install Flask version 2.1.0 using pip3
+package { 'pip3':
+  ensure => installed,
 }
 
-package{'Werkzeug':
-    ensure    => '2.1.0',
-    provider => 'pip3',
-    require   => Package['python3'],
+exec { 'install_flask':
+  command => '/usr/bin/pip3 install flask==2.1.0',
+  path    => ['/usr/bin'],
+  unless  => '/usr/bin/pip3 show flask | grep -q "Version: 2.1.0"',
 }
