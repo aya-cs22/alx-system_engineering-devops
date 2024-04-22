@@ -1,17 +1,23 @@
-#Using Puppet, install python3 from pip3.
-package{'python3':
-    ensure    => '3.8.10',
-    provider => 'pip3',  
+# Using Puppet to install flask from pip3.
+# check that python 3 is installed
+package {'python3':
+    ensure   => present,
 }
-#Using Puppet, install flask from pip3.
-package{'flask':
-    ensure    => '2.1.0',
-    provider => 'pip3',
-    require   => Package['python3'],
+
+# Check that pip3 is installed
+package {'python3-pip':
+    ensure => present
 }
-#Using Puppet, install Werkzeug from pip3.
-package{'Werkzeug':
-    ensure    => '2.1.0',
-    provider => 'pip3',
-    require   => Package['python3'],
+
+# install flask version 2.1.0
+package {'flask':
+    ensure   =>'2.1.0',
+    name     =>'flask',
+    provider =>'pip'
+}
+
+# install werkzeug
+package {'werkzeug':
+    ensure   =>'2.1.1',
+    provider =>'pip'
 }
