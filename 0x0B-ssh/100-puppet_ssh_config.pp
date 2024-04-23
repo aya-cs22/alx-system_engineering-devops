@@ -5,7 +5,7 @@ file { '/home/user/.ssh/config':
   group   => 'user',
   mode    => '0600',
   content => "
-    Host your_server_ip
+    Host 52.91.117.138
         IdentityFile ~/.ssh/school
         PasswordAuthentication no
   ",
