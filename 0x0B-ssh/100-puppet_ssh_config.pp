@@ -1,3 +1,4 @@
+#Client configuration file (w/ Puppet)
 file { '/home/user/.ssh/config':
   ensure  => present,
   owner   => 'user',
