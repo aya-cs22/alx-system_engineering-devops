@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-# Update package lists to get the lates update when installing
-sudo apt-get update
+# Install nginx web server
 
-# Install Nginx, -y to make a default yes for all questions
+# Update package lists
+sudo apt-get -y update
+
+# Install nginx
 sudo apt-get install -y nginx
 
-# Ensure Nginx is listening on port 80
-sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+# Allow HTTP traffic through the firewall for Nginx
+sudo ufw allow 'Nginx HTTP'
 
-# Create a simple "Hello World!" page
-# tee do both show output to the terminal, write on file
-echo "Hello World!" | sudo tee /var/www/html/index.html
+# Create a simple HTML page with "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
 
-# Restart Nginx without using systemctl
-sudo service nginx restart
+# Start Nginx
+sudo service nginx start
