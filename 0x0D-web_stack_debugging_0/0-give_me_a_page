@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Install Docker
+apt update
+install apt apache2
+service apache2 restart
