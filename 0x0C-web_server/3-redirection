@@ -4,5 +4,5 @@
 sudo apt-get update
 sudo apt-get install nginx -y
 sudo echo "<h1>Hello World!</h1>" | sudo tee /var/www/html/index.html
-sudo sed -i '/listen 80 default_server /a rewitr ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/;' /etc/nginx/sites-available/default
+sudo sed -i '/listen 80 default_server /a rewrite ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/;' /etc/nginx/sites-available/default
 sudo service nginx restart
