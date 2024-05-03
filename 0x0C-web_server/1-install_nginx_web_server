@@ -1,17 +1,11 @@
 #!/usr/bin/env bash
-# Install nginx web server
+# Installs Nginx
 
-# Update package lists
-sudo apt-get -y update
-
-# Install nginx
-sudo apt-get install -y nginx
-
-# Allow HTTP traffic through the firewall for Nginx
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install nginx -y
 sudo ufw allow 'Nginx HTTP'
-
-# Create a simple HTML page with "Hello World!"
-echo "Hello World!" > /var/www/html/index.html
-
-# Start Nginx
-sudo service nginx start
+sudo chown -R ubuntu /var/www/html
+sudo chmod -R 755 /var/www/html
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+service nginx restart
