@@ -1,17 +1,8 @@
 #!/usr/bin/env bash
-# Install nginx web server
-
-# Update package lists
+# a Bash script that configures a new Ubuntu machine to respect requirements (Install nginx on your web-01 - Nginx should be listening on port 80)
 sudo apt-get update
-
-# Install nginx
 sudo apt-get install -y nginx
-
-# Allow HTTP traffic through the firewall for Nginx
-sudo ufw allow 'Nginx HTTP'
-
-# Create a simple HTML page with "Hello World!"
+# configureing Firewall (UFW) to allow HTTP traffic -port 80
+ufw allow 'Nginx HTTP'
 echo "Hello World!" > /var/www/html/index.html
-
-# Start Nginx
-sudo /usr/sbin/nginx
+service nginx start
