@@ -3,10 +3,6 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
-# | sudo tee === >
 echo "Hello World!" | sudo tee /var/www/html/index.html
-# sed: Stream Editor - for text manipulation
-# -i to apply edits to the original file not to output
-# a: to append what's after to to the match before it
-sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://github.com/hagarSamy permanent;' /etc/nginx/sites-available/default
+sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/;' /etc/nginx/sites-available/default
 sudo service nginx restart
