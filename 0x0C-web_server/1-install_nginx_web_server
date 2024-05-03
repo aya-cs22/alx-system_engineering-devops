@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 # Install nginx web server
 
+# Update package lists
 sudo apt-get update
+
+# Install nginx
 sudo apt-get install -y nginx
-sudo ufw allow 'Nginx Http'
+
+# Allow HTTP traffic through the firewall for Nginx
+sudo ufw allow 'Nginx HTTP'
+
+# Create a simple HTML page with "Hello World!"
 echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
-sudo service nginx start
+
+# Start Nginx
+sudo /usr/sbin/nginx
