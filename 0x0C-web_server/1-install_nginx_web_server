@@ -11,7 +11,7 @@ sudo apt-get install -y nginx
 sudo ufw allow 'Nginx HTTP'
 
 # Create a simple HTML page with "Hello World!"
-echo "Hello World!" | sudo /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
 # Start Nginx
 sudo /usr/sbin/nginx
