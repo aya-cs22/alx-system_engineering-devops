@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
-#The redirection must be a “301 Moved Permanently”
+# Configure your Nginx server so that /redirect_me is redirecting to another page.
 
-sudo apt-get update
-sudo apt-get install nginx -y
-sudo echo "<h1>Hello World!</h1>" >> /var/www/html/index.html
-sudo sed -i '/listen 80 default_server /a rewitr ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/;' /etc/nginx/sites-available/default
+sudo apt-get -y update
+sudo apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+#!/bin/bash
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Holberton School" | sudo tee /var/www/html/index
+sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 sudo service nginx restart
+# #!/usr/bin/env bash
+# #The redirection must be a “301 Moved Permanently”
+
+# sudo apt-get update
+# sudo apt-get install nginx -y
+# sudo echo "<h1>Hello World!</h1>" >> /var/www/html/index.html
+# sudo sed -i '/listen 80 default_server /a rewitr ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/;' /etc/nginx/sites-available/default
+# sudo service nginx restart
