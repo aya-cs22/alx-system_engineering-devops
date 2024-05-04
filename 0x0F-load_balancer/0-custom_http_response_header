@@ -1,10 +1,35 @@
 #!/usr/bin/env bash
-# a Bash script containing commands to automatically configure a Ubuntu machine so that /redirect_me is redirecting to another page “301 Moved Permanently”
+
+# Update package lists and install Nginx
 sudo apt-get -y update
 sudo apt-get -y install nginx
+
+# Allow Nginx through UFW
 sudo ufw allow 'Nginx HTTP'
+
+# Create index.html and 404.html
 echo "Hello World!" | tee /var/www/html/index.html
-echo -e "Ceci n'est pas une page\n" | sudo tee /var/www/html/404.html
-sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/ permanent;' /etc/nginx/sites-available/default
-sudo sed -i "/redirect_me/ a\\\t error_page 404 /404.html;" /etc/nginx/sites-available/default
-sudo service nginx restart
+echo -e "Ceci n'est pas une page\n" | tee /var/www/html/404.html
+
+# Configure Nginx to serve "Hello World!" at root and set up redirection
+
+
+# Include the custom configuration
+sudo ln -s /etc/nginx/conf.d/custom.conf /etc/nginx/sites-enabled/
+
+# Test Nginx configuration
+sudo nginx -t
+
+# Reload Nginx to apply changes
+sudo systemctl reload nginx
+
+# #!/usr/bin/env bash
+# # a Bash script containing commands to automatically configure a Ubuntu machine so that /redirect_me is redirecting to another page “301 Moved Permanently”
+# sudo apt-get -y update
+# sudo apt-get -y install nginx
+# sudo ufw allow 'Nginx HTTP'
+# echo "Hello World!" | tee /var/www/html/index.html
+# echo -e "Ceci n'est pas une page\n" | sudo tee /var/www/html/404.html
+# sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/ permanent;' /etc/nginx/sites-available/default
+# sudo sed -i "/redirect_me/ a\\\t error_page 404 /404.html;" /etc/nginx/sites-available/default
+# sudo service nginx restart
