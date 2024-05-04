@@ -21,8 +21,7 @@ sudo ln -s /etc/nginx/conf.d/custom.conf /etc/nginx/sites-enabled/
 sudo nginx -t
 
 # Reload Nginx to apply changes
-sudo systemctl reload nginx
-
+sudo service nginx restart
 # #!/usr/bin/env bash
 # # a Bash script containing commands to automatically configure a Ubuntu machine so that /redirect_me is redirecting to another page “301 Moved Permanently”
 # sudo apt-get -y update
