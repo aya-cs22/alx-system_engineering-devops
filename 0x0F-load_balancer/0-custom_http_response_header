@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
-# a Bash script containing commands to automatically configure a Ubuntu machine so that /redirect_me is redirecting to another page “301 Moved Permanently”
-sudo apt-get -y update
+# error page with a massage
+
+sudo apt-get update
 sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-echo "Hello World!" | tee /var/www/html/index.html
-echo -e "Ceci n'est pas une page\n" | tee /var/www/html/404.html
-sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/ permanent;' /etc/nginx/sites-available/default
-sudo sed -i "/redirect_me/ a\\\t error_page 404 /404.html;" /etc/nginx/sites-available/default
-sudo service nginx restart
+sudo service nginx start
+
+
+sudo sed -i "/server_name _;/a\        add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+#a for append after server_name _ line
+sudo service nginx reload
+# #!/usr/bin/env bash
+# # a Bash script containing commands to automatically configure a Ubuntu machine so that /redirect_me is redirecting to another page “301 Moved Permanently”
+# sudo apt-get -y update
+# sudo apt-get -y install nginx
+# sudo ufw allow 'Nginx HTTP'
+# echo "Hello World!" | tee /var/www/html/index.html
+# echo -e "Ceci n'est pas une page\n" | tee /var/www/html/404.html
+# sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.linkedin.com/in/aya-anwar-473115279/ permanent;' /etc/nginx/sites-available/default
+# sudo sed -i "/redirect_me/ a\\\t error_page 404 /404.html;" /etc/nginx/sites-available/default
+# sudo service nginx restart
