@@ -1,23 +1,17 @@
-# custom http request header
-package {'nginx':
-  ensure  => 'installed',
-}
+# To automate task in creating a custom
+# HTTP header response, but with Puppet.
 
-file { '/etc/nginx/sites-available/default':
-  ensure  => 'present',
-  content => "server {
-        listen 80 default_server;
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        server_name _;
-        add_header X-Served-By ${hostname};
-        location / {
-                root /var/www/html;
-        }
-}",
+exec {'update':
+  command => '/usr/bin/apt-get update',
 }
-# to applaya restart
-service {'nginx':
-  ensure => running,
-  enable => true,
+-> package {'nginx':
+  ensure => 'present',
+}
+-> file_line { 'http_header':
+  path  => '/etc/nginx/nginx.conf',
+  match => 'http {',
+  line  => "http {\n\tadd_header X-Served-By \"${hostname}\";",
+}
+-> exec {'run':
+  command => '/usr/sbin/service nginx restart',
 }
