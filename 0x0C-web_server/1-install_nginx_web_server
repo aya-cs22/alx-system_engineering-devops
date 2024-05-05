@@ -1,25 +1,9 @@
 #!/usr/bin/env bash
-# Update package lists to get the lates update when installing
-sudo apt-get update
+# installs nginx and configures it on a remote server
 
-# Install Nginx, -y to make a default yes for all questions
-sudo apt-get install -y nginx
-
-# Ensure Nginx is listening on port 80
-sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-
-# Create a simple "Hello World!" page
-# tee do both show output to the terminal, write on file
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-# Restart Nginx without using systemctl
-sudo service nginx restart
-# #!/usr/bin/env bash
-# # installs nginx and configures it on a remote server
-
-# sudo apt-get -y update
-# sudo apt-get -y install nginx
-# sudo ufw allow 'Nginx HTTP'
-# sudo echo '<h1>Hello World!</h1>' > /var/www/html/index.html
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo echo '<h1>Hello World!</h1>' > /var/www/html/index.html
 # sed -i "s/server_name _;/server_name 54.208.42.72; /g" /etc/nginx/sites-enabled/default
-# sudo service nginx restart
+sudo service nginx restart
