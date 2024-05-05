@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
-# a Bash script that configures a new Ubuntu machine to respect requirements (Install nginx on your web-01 - Nginx should be listening on port 80)
-sudo apt-get update
-sudo apt-get install -y nginx
-# configureing Firewall (UFW) to allow HTTP traffic -port 80
-ufw allow 'Nginx HTTP'
-echo "Hello World!" > /var/www/html/index.html
-service nginx start
-# #!/usr/bin/env bash
-# # installs nginx and configures it on a remote server
+# installs nginx and configures it on a remote server
 
-# sudo apt-get -y update
-# sudo apt-get -y install nginx
-# sudo ufw allow 'Nginx HTTP'
-# sudo echo '<h1>Hello World!</h1>' > /var/www/html/index.html
-# # sed -i "s/server_name _;/server_name 54.208.42.72; /g" /etc/nginx/sites-enabled/default
-# sudo service nginx restart
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo echo '<h1>Hello World!</h1>' > /var/www/html/index.html
+# sed -i "s/server_name _;/server_name 54.208.42.72; /g" /etc/nginx/sites-enabled/default
+sudo service nginx restart
