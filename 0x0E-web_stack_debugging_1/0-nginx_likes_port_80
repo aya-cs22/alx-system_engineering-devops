@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #Nginx likes port 80
-cat /etc/nginx/sites-available/default | grep 'listen 80;'
+sudo nano /etc/nginx/sites-available/default
 service nginx restart
