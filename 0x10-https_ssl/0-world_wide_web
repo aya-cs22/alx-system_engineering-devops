@@ -3,11 +3,11 @@
 # Bash script that displays info about domains and subdomains
 print_info() {
     domains="$1"
-    subdomains="$2"
+    subdomain="$2"
     sub_dom="${subdomains}.${domains}"
     ip=$(dig "$sub_dom" | grep -A1 'ANSWER SECTION:' | awk '{print $5}' | tr -d '\n')
-    recorder=$(dig "$sub_dom" | grep -A1 'ANSWER SECTION:' | awk '{print $4}' | tr -d '\n')
-    echo "The subdomain $subdomains is a $recorder record and points to $ip"
+    record=$(dig "$sub_dom" | grep -A1 'ANSWER SECTION:' | awk '{print $4}' | tr -d '\n')
+    echo "The subdomain $subdomain is a $record record and points to $ip"
 }
 if [[ $# -gt 1 ]]
 then
