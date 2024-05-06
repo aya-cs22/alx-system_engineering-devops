@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 # Bash script that displays info about domains and subdomains
 print_info() {
