@@ -1,22 +1,15 @@
 #!/usr/bin/env bash
-# Output: The subdomain [SUB_DOMAIN] is a [RECORD_TYPE] record and points to [DESTINATION]
-# When only the parameter domain is provided, display information for its subdomains www, lb-01, web-01 and web-02 - in this specific order
-# When passing domain and subdomain parameters, display information for the specified subdomain
+# a Bash script that will display information about subdomains.
 
-domGetter() {
-    domain="$1"
-    subdomain="$2"
-    fullsubdom="${subdomain}.${domain}" 
-    ip=$(dig "${fullsubdom}" +short A)
-    rectype=$(dig "${fullsubdom}" +short | grep -E '^([A-Z]+)\s' | cut -d ' ' -f1)
-    echo "The subdomain $subdomain is a $rectype record and points to $ip"
+print_info () {
+     dig "$1" | grep -A1 'ANSWER SECTION:' | sed -r "s/$1./$2/g" | awk -F" " ' NR==2 { print "The subdomain " $1 " is a " $4 " record and points to " $5 }'
 }
 
-if [ $# -gt 1 ]; then
-    domGetter "$1" "$2"
-elif [ $# -eq 1 ]; then
-    domGetter "$1" "www"
-    domGetter "$1" "lb-01"
-    domGetter "$1" "web-01"
-    domGetter "$1" "web-02"
+if [ "$#" -eq 2 ]; then
+    print_info "$2.$1" "$2"
+else
+    print_info "www.$1" "www"
+    print_info "lb-01.$1" "lb-01"
+    print_info "web-01.$1" "web-01"
+    print_info "web-02.$1" "web-02"
 fi
