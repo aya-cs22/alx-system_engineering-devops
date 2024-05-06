@@ -1,23 +1,46 @@
 #!/usr/bin/env bash
+# Output: The subdomain [SUB_DOMAIN] is a [RECORD_TYPE] record and points to [DESTINATION]
+# When only the parameter domain is provided, display information for its subdomains www, lb-01, web-01 and web-02 - in this specific order
+# When passing domain and subdomain parameters, display information for the specified subdomain
+
 domGetter() {
-  domain="$1"
-  subdomain="$2"
-  fullsubdom="${subdomain}.${domain}"
-  ip=$(dig "${fullsubdom}" | grep -A1 'ANSWER SECTION:' | awk '{print $5}' | tr -d '\n' )
-  rectype=$(dig "${fullsubdom}" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | head -1)
-  echo "The subdomain $subdomain is a $rectype record and points to $ip"
+    domain="$1"
+    subdomain="$2"
+    fullsubdom="${subdomain}.${domain}" 
+    ip=$(dig "${fullsubdom}" | grep -A1 'ANSWER SECTION:' | awk '{print $5}' | tr -d '\n' )
+    #p=$(dig "${fullsubdom}" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -1)
+    rectype=$(dig "${fullsubdom}" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | head -1)
+    echo "The subdomain $subdomain is a $rectype record and points to $ip"
 }
 
-if [ $# -gt 2 ]; then
-  echo "Usage: $0 <domain> [subdomain]"
-  exit 1
+if [ $# -gt 1 ]; then
+    domGetter "$1" "$2"
+elif [ $# -eq 1 ]; then
+    domGetter "$1" "www"
+    domGetter "$1" "lb-01"
+    domGetter "$1" "web-01"
+    domGetter "$1" "web-02"
 fi
+# #!/usr/bin/env bash
+# domGetter() {
+#   domain="$1"
+#   subdomain="$2"
+#   fullsubdom="${subdomain}.${domain}"
+#   ip=$(dig "${fullsubdom}" | grep -A1 'ANSWER SECTION:' | awk '{print $5}' | tr -d '\n' )
+#   rectype=$(dig "${fullsubdom}" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | head -1)
+#   echo "The subdomain $subdomain is a $rectype record and points to $ip"
+# }
 
-if [ $# -eq 1 ]; then
-  domGetter "$1" "www"
-  domGetter "$1" "lb-01"
-  domGetter "$1" "web-01"
-  domGetter "$1" "web-02"
-elif [ $# -eq 2 ]; then
-  domGetter "$1" "$2"
-fi
+# if [ $# -gt 2 ]; then
+#   echo "Usage: $0 <domain> [subdomain]"
+#   exit 1
+# fi
+
+# if [ $# -eq 1 ]; then
+#   domGetter "$1" "www"
+#   domGetter "$1" "lb-01"
+#   domGetter "$1" "web-01"
+#   domGetter "$1" "web-02"
+# elif [ $# -eq 2 ]; then
+#   domGetter "$1" "$2"
+# fi
