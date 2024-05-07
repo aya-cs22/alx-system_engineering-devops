@@ -18,3 +18,5 @@ then
     print_info "$1" "web-01"
     print_info "$1" "web-02"
 fi
+
+                                                              
