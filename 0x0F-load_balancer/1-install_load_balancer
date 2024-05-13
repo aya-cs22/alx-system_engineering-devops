@@ -10,8 +10,8 @@ frontend http
 printf '%s\n' "
 backend http_servers
     balance roundrobin
-    server 433678-web-01 54.208.42.72:80 check
-    server 433678-web-02 54.208.90.100:80 check" >> /etc/haproxy/haproxy.cfg
+    server 433678-web-01 54.236.46.105:80 check
+    server 433678-web-02 54.157.154.108:80 check" >> /etc/haproxy/haproxy.cfg
 
 
 sudo systemctl enable haproxy
