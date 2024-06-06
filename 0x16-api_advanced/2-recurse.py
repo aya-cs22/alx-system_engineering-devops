@@ -1,28 +1,27 @@
 #!/usr/bin/python3
-"""Module """
+"""Using requests library"""
+import requests
 
 
-def recurse(subreddit, hot_list=[], count=0, after=None):
-    """Qaa"""
-    import requests
+def recurse(subreddit, hot_list=[], after=None):
+    """Get Top ten from reddit API"""
 
-    sub_info = requests.get("https://www.reddit.com/r/{}/hot.json"
-                            .format(subreddit),
-                            params={"count": count, "after": after},
-                            headers={"User-Agent": "My-User-Agent"},
-                            allow_redirects=False)
-    if sub_info.status_code >= 400:
+    api_url = f"https://www.reddit.com/r/{subreddit}/hot.json?&after={after}"
+
+    headers = {"User-Agent": "MyApp/1.0"}
+    response = requests.get(api_url, headers=headers, allow_redirects=False)
+
+    if response.status_code != 200:
         return None
 
-    hot_l = hot_list + [child.get("data").get("title")
-                        for child in sub_info.json()
-                        .get("data")
-                        .get("children")]
+    if response.status_code == 200:
+        data = response.json()
 
-    info = sub_info.json()
-    if not info.get("data").get("after"):
-        return hot_l
+        for post in data["data"]["children"]:
+            hot_list.append(post["data"]["title"])
 
-    return recurse(subreddit, hot_l, info.get("data").get("count"),
-                   info.get("data").get("after"))
-
+        after = f"{data['data']['after']}"
+        if after is not None:
+            return recurse(subreddit, hot_list, after)
+    else:
+        return hot_list

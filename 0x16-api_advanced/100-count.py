@@ -1,39 +1,33 @@
 #!/usr/bin/python3
-
-'''a''''
+"""requests module"""
 import requests
 
 
-def count_words(subreddit, word_list, hot_list=[], viewed_count=0, after=''):
-    base = 'https://www.reddit.com/'
-    endpoint = 'r/{}/hot.json'.format(subreddit)
-    query_string = '?show="all"&limit=100&after={}&count={}'.format(
-        after, viewed_count)
-    url = base + endpoint + query_string
-    headers = {'User-Agent': 'Python/1.0(Holberton School 0x16 task 3)'}
-    response = requests.get(url, headers=headers)
-    if not response.ok:
-            return
+def count_words(subreddit, word_list, after=None, dic=None):
+    """ returns a list containing the titles of all hot articles"""
 
-    data = response.json()['data']
-    for post in data['children']:
-        hot_list.append(post['data']['title'])
-    after = data['after']
-    dist = data['dist']
-    if (after):
-        count_words(subreddit, [], hot_list, viewed_count + dist, after)
+    if dic is None:
+        dic = {word: 0 for word in word_list}
 
-    if viewed_count == 0:
-        result = {}
-        word_list = [word.lower() for word in word_list]
-        hot_words = ' '.join(hot_list).lower().split(' ')
-        for hot_word in hot_words:
-            for search_word in word_list:
-                if hot_word == search_word:
-                    result.setdefault(search_word, 0)
-                    result[search_word] += 1
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?after={after}"
+    res = requests.get(url, headers={'User-Agent': 'abeer'})
 
-        for word, count in sorted(
-            sorted(result.items()), key=lambda x: x[1], reverse=True
-        ):
-            print("{}: {}".format(word, count))
+    if res.status_code != 200:
+        return
+
+    hot = res.json()
+    for article in hot['data']['children']:
+        for word in word_list:
+            key_word = f" {word.lower()} "
+            title = article['data']['title'].lower()
+            dic[word] += key_word.count(title)
+
+    after = hot['data']['after']
+    if not after:
+        sorted_dict = dict(sorted(dic.items()))
+        for key, value in sorted_dict.items():
+            if value:
+                print(f"{key}: {value}")
+        return
+
+    return (count_words(subreddit, word_list, after, dic))
