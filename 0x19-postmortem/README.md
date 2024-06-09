@@ -5,7 +5,7 @@
 - **Impact:** The Apache web server decided to take a coffee break, leaving users stranded with HTTP 404 errors.
 - **Root Cause:** A misconfigured file extension (phpp instead of php) in the Apache server configuration left PHP pages feeling lost and confused.
 
-![Apache Debacle Diagram](images/apache_debacle_diagram.png)
+![Apache Debacle Diagram](0x19-postmortem/Screenshot from 2024-06-09 14-34-49.png)
 ## Timeline:
 - **9:00 AM:** The monitoring system went berserk, sounding alarms about a surge in HTTP 404 errors.
 - **9:15 AM:** We noticed the server acting up and dove headfirst into investigation mode.
