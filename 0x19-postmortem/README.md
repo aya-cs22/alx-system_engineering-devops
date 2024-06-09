@@ -1,4 +1,4 @@
-[1:18 PM, 6/9/2024] Aya Anwar: Postmortem: Apache Web Server Outage Incident
+ Postmortem: Apache Web Server Outage Incident
 
 Issue Summary:
 - Duration: June 5, 2024, 9:00 AM - 11 AM (GMT)
